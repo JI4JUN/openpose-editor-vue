@@ -51,7 +51,9 @@ function initEditor() {
             y: (pointerPos!.y - stageRef.value!.y()) / oldScale,
         }
 
-        const newScale = e.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+        let newScale = e.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+        if (newScale > 20) newScale = 20;
+        if (newScale < 0.01) newScale = 0.01;
         stageRef.value!.scale({x: newScale, y: newScale});
 
         const newPos = {
